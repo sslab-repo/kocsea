@@ -3,10 +3,14 @@ function h(string $s): string { return htmlspecialchars($s, ENT_QUOTES | ENT_SUB
 function redirect(string $path): void { header('Location: ' . $path); exit; }
 function base_url(string $path = ''): string { return rtrim(BASE_URL, '/') . '/' . ltrim($path, '/'); }
 
-// Rewrite relative / root-relative <img src> to absolute URLs (based on BASE_URL)
-// so the HTML survives copy-paste into email clients (Gmail etc.).
+// Rewrite relative / root-relative <img src> to absolute URLs so the HTML
+// survives copy-paste into email clients (Gmail etc.).
+// Images use ASSET_BASE_URL if defined in config.php; otherwise BASE_URL with
+// the scheme forced to http:// (the host's HTTPS cert doesn't cover this domain,
+// so Gmail's image proxy rejects https image URLs).
 function absolutize_img_src(string $html): string {
-  $base   = rtrim(BASE_URL, '/');                       // https://host/kocsea/news
+  $base = defined('ASSET_BASE_URL') ? ASSET_BASE_URL : preg_replace('#^https://#i', 'http://', BASE_URL);
+  $base   = rtrim($base, '/');                          // http://host/kocsea/news
   $origin = preg_replace('#^(https?://[^/]+).*$#i', '$1', $base); // https://host
   return preg_replace_callback(
     '#(<img\b[^>]*\bsrc=)(["\'])([^"\']+)\2#i',

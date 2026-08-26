@@ -9,6 +9,11 @@ define('DB_PASS', 'CHANGE_ME');
 // Example: https://www.touchingheartssoftware.com/ecamsnews
 define('BASE_URL', 'https://app.datapot.net/kocsea/news');
 
+// Optional: base URL used for <img src> in the newsletter preview (copy-paste to email).
+// Defaults to BASE_URL with http:// when not defined. Set to https once the host has a
+// valid certificate for this domain.
+// define('ASSET_BASE_URL', 'https://app.datapot.net/kocsea/news');
+
 // Where to save generated PDFs (ensure webserver can write here)
 define('PDF_OUTPUT_DIR', __DIR__ . '/newsletters');
 

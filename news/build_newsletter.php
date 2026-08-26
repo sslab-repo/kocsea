@@ -36,6 +36,16 @@ ob_start();
     .container { max-width: 800px; margin: 0 auto; }
     h1,h2,h3 { margin: 0.5rem 0; }
     .divider { border-bottom: 1px solid #ccc; margin: 12px 0; }
+
+    /* Flow posts continuously across pages: only keep a heading with the text after it
+       (no page-break-inside:avoid on whole posts, which left near-empty pages). */
+    section.post { margin-bottom: 14px; }
+    section.post h3 { page-break-after: avoid; }
+    p, li { orphans: 2; widows: 2; }
+
+    /* Images: never wider than 60% of the printable width, regardless of the inline
+       width/height TinyMCE puts on them; keep aspect ratio. */
+    section.post img { max-width: 60% !important; height: auto !important; page-break-inside: avoid; }
   </style>
 </head>
 <body>
@@ -43,7 +53,7 @@ ob_start();
     <?= $banner ?>
     <h2 style="text-align:center;"><?= h($title) ?></h2>
     <?php foreach ($posts as $p): ?>
-      <section style="page-break-inside: avoid; margin-bottom: 18px;">
+      <section class="post">
         <h3><?= h($p['title']) ?></h3>
         <div><?= $p['body_html'] ?></div>
    <!--     <p style="font-size:10pt;color:#777;">Posted by <?= h($p['author']) ?> (Active: <?= h($p['start_date']) ?> → <?= h($p['end_date']) ?>)</p> -->

@@ -37,14 +37,14 @@ include __DIR__ . '/header.php';
 <hr>
 <h3>Preview</h3>
 <div class="post">
-  <?= $banner ?>
+  <?= absolutize_img_src($banner) ?>
   <?php if (!$posts): ?>
     <p><em>No posts found in this window.</em></p>
   <?php else: ?>
     <?php foreach ($posts as $p): ?>
       <section style="margin: 24px 0;">
         <h3 style="font-family:Arial,sans-serif; border-bottom:1px solid #ddd; padding-bottom:8px;"><?= h($p['title']) ?></h3>
-        <div><?= $p['body_html'] ?></div>
+        <div><?= absolutize_img_src($p['body_html']) ?></div>
        <!-- <p style="font-size:12px;color:#777;">Posted by <?= h($p['author']) ?></p> -->
       </section>
     <?php endforeach; ?>

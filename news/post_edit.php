@@ -111,27 +111,23 @@ include __DIR__ . '/header.php';
 
 <script src="https://cdn.tiny.cloud/1/fbzj4v8z1jl7zfa9iknthxw0tc3pnrl653qf8pqbb1xgewmr/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
 <script>
-  tinymce.init({
-    selector: '#newseditor',
-    plugins: [
-      // Core editing features
-      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-      // Premium features
-      'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'advtemplate', 'tinymceai', 'uploadcare', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
-    ],
-    toolbar: 'undo redo | tinymceai-chat tinymceai-quickactions tinymceai-review | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
-    ],
-    tinymceai_token_provider: async () => {
-      await fetch(`https://demo.api.tiny.cloud/1/fbzj4v8z1jl7zfa9iknthxw0tc3pnrl653qf8pqbb1xgewmr/auth/random`, { method: "POST", credentials: "include" });
-      return { token: await fetch(`https://demo.api.tiny.cloud/1/fbzj4v8z1jl7zfa9iknthxw0tc3pnrl653qf8pqbb1xgewmr/jwt/tinymceai`, { credentials: "include" }).then(r => r.text()) };
-    },
-    uploadcare_public_key: 'c86c3629851c46637f9f',
-  });
+  (function() {
+    // Same free plugin set as post_new.php (no premium plugins — the trial expired)
+    tinymce.init({
+      selector: '#newseditor',
+      plugins: 'lists link image table code',
+      toolbar: 'undo redo | styles | bold italic underline | bullist numlist | link image table | code',
+      menubar: false,
+      height: 400,
+      convert_urls: false,
+      setup: function (editor) {
+        editor.on('change input keyup', function () { editor.save(); });
+      }
+    });
+    document.getElementById('editForm').addEventListener('submit', function () {
+      if (tinymce && tinymce.triggerSave) tinymce.triggerSave();
+    });
+  })();
 </script>
 <?php include __DIR__ . '/footer.php'; ?>
 

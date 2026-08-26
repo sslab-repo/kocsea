@@ -44,7 +44,7 @@ include __DIR__ . '/header.php';
     <?php foreach ($posts as $p): ?>
       <section style="margin: 24px 0;">
         <h3 style="font-family:Arial,sans-serif; border-bottom:1px solid #ddd; padding-bottom:8px;"><?= h($p['title']) ?></h3>
-        <div><?= absolutize_img_src($p['body_html']) ?></div>
+        <div><?= center_images(absolutize_img_src($p['body_html'])) ?></div>
        <!-- <p style="font-size:12px;color:#777;">Posted by <?= h($p['author']) ?></p> -->
       </section>
     <?php endforeach; ?>

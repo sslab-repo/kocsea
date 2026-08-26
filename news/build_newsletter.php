@@ -45,7 +45,8 @@ ob_start();
 
     /* Images: never wider than 60% of the printable width, regardless of the inline
        width/height TinyMCE puts on them; keep aspect ratio. */
-    section.post img { max-width: 60% !important; height: auto !important; page-break-inside: avoid; }
+    section.post img { max-width: 60% !important; height: auto !important; page-break-inside: avoid;
+                       display: block !important; margin-left: auto !important; margin-right: auto !important; }
   </style>
 </head>
 <body>
@@ -55,7 +56,7 @@ ob_start();
     <?php foreach ($posts as $p): ?>
       <section class="post">
         <h3><?= h($p['title']) ?></h3>
-        <div><?= $p['body_html'] ?></div>
+        <div><?= center_images($p['body_html']) ?></div>
    <!--     <p style="font-size:10pt;color:#777;">Posted by <?= h($p['author']) ?> (Active: <?= h($p['start_date']) ?> → <?= h($p['end_date']) ?>)</p> -->
       </section>
     <?php endforeach; ?>

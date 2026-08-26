@@ -24,6 +24,25 @@ function absolutize_img_src(string $html): string {
   );
 }
 
+// Center every <img> with inline styles (survives copy-paste into email and is honored by
+// dompdf). Drops align= / float so TinyMCE's left/right alignment can't override it.
+function center_images(string $html): string {
+  return preg_replace_callback('#<img\b[^>]*>#i', function ($m) {
+    $tag = $m[0];
+    $tag = preg_replace('#\salign=(["\'])[^"\']*\1#i', '', $tag);
+    $center = 'display:block;margin-left:auto;margin-right:auto;';
+    if (preg_match('#\sstyle=(["\'])(.*?)\1#is', $tag, $s)) {
+      $style = preg_replace('#\s*(float|display|margin(-left|-right)?)\s*:[^;"\']*;?#i', '', $s[2]);
+      $style = rtrim(trim($style), ';');
+      $style = ($style !== '' ? $style . ';' : '') . $center;
+      $tag = str_replace($s[0], ' style=' . $s[1] . $style . $s[1], $tag);
+    } else {
+      $tag = preg_replace('#<img\b#i', '<img style="' . $center . '"', $tag, 1);
+    }
+    return $tag;
+  }, $html);
+}
+
 // CSRF helpers
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 function csrf_token(): string {

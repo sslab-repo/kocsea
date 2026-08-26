@@ -38,7 +38,6 @@ include __DIR__ . '/header.php';
 <h3>Preview</h3>
 <div class="post">
   <?= $banner ?>
-  <p style="text-align:center; color:#666;"><?= h($start) ?> to <?= h($end) ?></p>
   <?php if (!$posts): ?>
     <p><em>No posts found in this window.</em></p>
   <?php else: ?>
@@ -50,6 +49,8 @@ include __DIR__ . '/header.php';
       </section>
     <?php endforeach; ?>
   <?php endif; ?>
+  <div style="border-bottom:1px solid #ccc; margin:12px 0;"></div>
+  <p style="text-align:right; color:#666; font-size:9pt; margin:4px 0 0;">Coverage: <?= h($start) ?> to <?= h($end) ?></p>
 </div>
 
 <form method="post" action="build_newsletter.php">

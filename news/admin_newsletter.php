@@ -37,7 +37,7 @@ include __DIR__ . '/header.php';
 <hr>
 <h3>Preview</h3>
 <div class="post">
-  <?= absolutize_img_src($banner) ?>
+  <?php /* banner intentionally omitted from the preview (copy-paste to email); it is still rendered in the PDF */ ?>
   <?php if (!$posts): ?>
     <p><em>No posts found in this window.</em></p>
   <?php else: ?>

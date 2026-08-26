@@ -109,25 +109,6 @@ include __DIR__ . '/header.php';
   <a class="secondary" href="<?= h(base_url('posts_list.php')) ?>">Back</a>
 </form>
 
-<script src="https://cdn.tiny.cloud/1/fbzj4v8z1jl7zfa9iknthxw0tc3pnrl653qf8pqbb1xgewmr/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
-<script>
-  (function() {
-    // Same free plugin set as post_new.php (no premium plugins — the trial expired)
-    tinymce.init({
-      selector: '#newseditor',
-      plugins: 'lists link image table code',
-      toolbar: 'undo redo | styles | bold italic underline | bullist numlist | link image table | code',
-      menubar: false,
-      height: 400,
-      convert_urls: false,
-      setup: function (editor) {
-        editor.on('change input keyup', function () { editor.save(); });
-      }
-    });
-    document.getElementById('editForm').addEventListener('submit', function () {
-      if (tinymce && tinymce.triggerSave) tinymce.triggerSave();
-    });
-  })();
-</script>
+<?php $editorFormId = 'editForm'; include __DIR__ . '/editor.php'; ?>
 <?php include __DIR__ . '/footer.php'; ?>
 

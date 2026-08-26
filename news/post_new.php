@@ -73,34 +73,7 @@ include __DIR__ . '/header.php';
   <button type="submit">Save</button>
 </form>
 
-<!-- TinyMCE (make sure the version matches your key/version) -->
-<script src="https://cdn.tiny.cloud/1/fbzj4v8z1jl7zfa9iknthxw0tc3pnrl653qf8pqbb1xgewmr/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
-<script>
-  (function() {
-    // Initialize TinyMCE on the correct selector
-    tinymce.init({
-      selector: 'textarea',
-      plugins: 'lists link image table code',
-      toolbar: 'undo redo | styles | bold italic underline | bullist numlist | link image table | code',
-      menubar: false,
-      height: 400,
-      convert_urls: false,
-      setup: function (editor) {
-        // Keep the underlying <textarea> in sync as the user types
-        editor.on('change input keyup', function () {
-          editor.save(); // writes content back into <textarea name="body_html">
-        });
-      }
-    });
-
-    // On submit, force sync in case the user never triggered 'change'
-    document.getElementById('postForm').addEventListener('submit', function() {
-      if (tinymce && tinymce.triggerSave) {
-        tinymce.triggerSave();
-      }
-    });
-  })();
-</script>
+<?php $editorFormId = 'postForm'; include __DIR__ . '/editor.php'; ?>
 
 <?php include __DIR__ . '/footer.php'; ?>
 

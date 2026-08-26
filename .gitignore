@@ -4,6 +4,9 @@ news/config.php
 # generated newsletters
 *.pdf
 
+# user-uploaded images (post_new/post_edit → upload_image.php)
+news/uploads/
+
 # editor/backup copies and archives
 *.bak
 *.bak.*

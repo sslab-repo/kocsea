@@ -7,6 +7,13 @@ news/config.php
 # user-uploaded images (post_new/post_edit → upload_image.php)
 news/uploads/
 
+# dompdf font metrics cache (generated next to the .ttf files at runtime)
+news/fonts/*.ufm
+news/fonts/*.afm
+news/fonts/*.json
+news/fonts/dompdf_font_family_cache.php
+news/fonts/nanumgothic_*
+
 # editor/backup copies and archives
 *.bak
 *.bak.*

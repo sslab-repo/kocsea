@@ -38,8 +38,6 @@ ob_start();
   <div class="container">
     <?= $banner ?>
     <h2 style="text-align:center;"><?= h($title) ?></h2>
-    <p style="text-align:center; color:#666;">Coverage: <?= h($start) ?> to <?= h($end) ?></p>
-    <div class="divider"></div>
     <?php foreach ($posts as $p): ?>
       <section style="page-break-inside: avoid; margin-bottom: 18px;">
         <h3><?= h($p['title']) ?></h3>
@@ -47,6 +45,8 @@ ob_start();
    <!--     <p style="font-size:10pt;color:#777;">Posted by <?= h($p['author']) ?> (Active: <?= h($p['start_date']) ?> → <?= h($p['end_date']) ?>)</p> -->
       </section>
     <?php endforeach; ?>
+    <div class="divider"></div>
+    <p style="text-align:right; color:#666; font-size:9pt; margin:4px 0 0;">Coverage: <?= h($start) ?> to <?= h($end) ?></p>
   </div>
 </body>
 </html>

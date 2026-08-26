@@ -1,0 +1,17 @@
+# secrets — real config lives only on the deployment host (config.example.php is tracked)
+news/config.php
+
+# generated newsletters
+*.pdf
+
+# editor/backup copies and archives
+*.bak
+*.bak.*
+*.zip
+news/dompdf.bak/
+
+# hosting-specific
+.user.ini
+php.ini
+memtest.php
+.DS_Store

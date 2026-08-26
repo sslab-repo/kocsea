@@ -43,6 +43,24 @@ function center_images(string $html): string {
   }, $html);
 }
 
+// PDF variant: dompdf ignores margin:auto on images (FrameReflower/Image::resolve_margins
+// forces it to 0), so center by wrapping each <img> in a text-align:center block and keeping
+// the image inline.
+function center_images_pdf(string $html): string {
+  return preg_replace_callback('#<img\b[^>]*>#i', function ($m) {
+    $tag = $m[0];
+    $tag = preg_replace('#\salign=(["\'])[^"\']*\1#i', '', $tag);
+    if (preg_match('#\sstyle=(["\'])(.*?)\1#is', $tag, $s)) {
+      $style = preg_replace('#\s*(float|display|margin(-left|-right)?)\s*:[^;"\']*;?#i', '', $s[2]);
+      $style = trim($style);
+      $tag = $style === ''
+        ? str_replace($s[0], '', $tag)
+        : str_replace($s[0], ' style=' . $s[1] . $style . $s[1], $tag);
+    }
+    return '<span style="display:block;text-align:center;">' . $tag . '</span>';
+  }, $html);
+}
+
 // CSRF helpers
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 function csrf_token(): string {

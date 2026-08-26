@@ -44,9 +44,11 @@ ob_start();
     p, li { orphans: 2; widows: 2; }
 
     /* Images: never wider than 60% of the printable width, regardless of the inline
-       width/height TinyMCE puts on them; keep aspect ratio. */
+       width/height TinyMCE puts on them; keep aspect ratio. Centering is done by the
+       text-align:center wrapper from center_images_pdf() — dompdf ignores margin:auto on
+       images, so they must stay inline. */
     section.post img { max-width: 60% !important; height: auto !important; page-break-inside: avoid;
-                       display: block !important; margin-left: auto !important; margin-right: auto !important; }
+                       display: inline !important; float: none !important; }
   </style>
 </head>
 <body>
@@ -56,7 +58,7 @@ ob_start();
     <?php foreach ($posts as $p): ?>
       <section class="post">
         <h3><?= h($p['title']) ?></h3>
-        <div><?= center_images($p['body_html']) ?></div>
+        <div><?= center_images_pdf($p['body_html']) ?></div>
    <!--     <p style="font-size:10pt;color:#777;">Posted by <?= h($p['author']) ?> (Active: <?= h($p['start_date']) ?> → <?= h($p['end_date']) ?>)</p> -->
       </section>
     <?php endforeach; ?>
